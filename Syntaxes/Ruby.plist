@@ -6,9 +6,9 @@
 	<string>
 	TODO: unresolved issues
 	text:
-	"p &lt;&lt; end
+	&quot;p &lt;&lt; end
 	print me!
-	end"
+	end&quot;
 	symptoms:
 	not recognized as a heredoc
 	solution:
@@ -19,7 +19,7 @@
 	• Nested heredocs are not really supportable at present
 
 	text:
-	print &lt;&lt;-'THERE'
+	print &lt;&lt;-&apos;THERE&apos;
 	This is single quoted.
 	The above used #{Time.now}
 	THERE
@@ -27,21 +27,21 @@
 	From Programming Ruby p306; should be a non-interpolated heredoc.
 
 	text:
-	"a\332a"
+	&quot;a\332a&quot;
 	symptoms:
-	'\332' is not recognized as slash3.. which should be octal 332.
+	&apos;\332&apos; is not recognized as slash3.. which should be octal 332.
 	solution:
 	plain regexp.. should be easy.
 
     text:
     val?(a):p(b)
-    val?'a':'b'
+    val?&apos;a&apos;:&apos;b&apos;
     symptoms:
-    ':p' is recognized as a symbol.. its 2 things ':' and 'p'.
-    :'b' has same problem.
+    &apos;:p&apos; is recognized as a symbol.. its 2 things &apos;:&apos; and &apos;p&apos;.
+    :&apos;b&apos; has same problem.
     solution:
     ternary operator rule, precedence stuff, symbol rule.
-    but also consider 'a.b?(:c)' ??
+    but also consider &apos;a.b?(:c)&apos; ??
 </string>
 	<key>fileTypes</key>
 	<array>
@@ -66,18 +66,18 @@
 	        |begin
 	        |for|while|until
 	         |^=begin
-	        |(  "(\\.|[^"])*+"          # eat a double quoted string
-	         | '(\\.|[^'])*+'        # eat a single quoted string
-	         |   [^#"']                # eat all but comments and strings
+	        |(  &quot;(\\.|[^&quot;])*+&quot;          # eat a double quoted string
+	         | &apos;(\\.|[^&apos;])*+&apos;        # eat a single quoted string
+	         |   [^#&quot;&apos;]                # eat all but comments and strings
 	         )*
 	         (                        \s   (do|begin|case)
 	         | (?&lt;!\$)[-+=&amp;|*/~%^&lt;&gt;~] \s*+ (if|unless)
 	         )
 	        )\b
 	        (?! [^;]*+ ; .*? \bend\b )
-	    |(  "(\\.|[^"])*+"              # eat a double quoted string
-	     | '(\\.|[^'])*+'            # eat a single quoted string
-	     |   [^#"']                    # eat all but comments and strings
+	    |(  &quot;(\\.|[^&quot;])*+&quot;              # eat a double quoted string
+	     | &apos;(\\.|[^&apos;])*+&apos;            # eat a single quoted string
+	     |   [^#&quot;&apos;]                    # eat all but comments and strings
 	     )*
 	     ( \{ (?!  [^}]*+ \} )
 	     | \[ (?! [^\]]*+ \] )
@@ -197,7 +197,7 @@
 		</dict>
 		<dict>
 			<key>comment</key>
-			<string>everything being a reserved word, not a value and needing a 'end' is a..</string>
+			<string>everything being a reserved word, not a value and needing a &apos;end&apos; is a..</string>
 			<key>match</key>
 			<string>(?&lt;!\.)\b(BEGIN|begin|case|class|else|elsif|END|end|ensure|for|if|in|module|rescue|then|unless|until|when|while)\b(?![?!])</string>
 			<key>name</key>
@@ -221,7 +221,7 @@
 		</dict>
 		<dict>
 			<key>comment</key>
-			<string> as above, just doesn't need a 'end' and does a logic operation</string>
+			<string> as above, just doesn&apos;t need a &apos;end&apos; and does a logic operation</string>
 			<key>match</key>
 			<string>(?&lt;!\.)\b(and|not|or)\b</string>
 			<key>name</key>
@@ -251,7 +251,7 @@
 			<key>comment</key>
 			<string> everything being a method but having a special function is a..</string>
 			<key>match</key>
-			<string>\b(initialize|new|loop|include|extend|raise|attr_reader|attr_writer|attr_accessor|attr|catch|throw|module_function|private|protected|public)\b(?![?!])</string>
+			<string>\b(initialize|new|loop|include|load|extend|raise|attr_reader|attr_writer|attr_accessor|attr|catch|throw|module_function|private|protected|public)\b(?![?!])</string>
 			<key>name</key>
 			<string>keyword.other.special-method.ruby</string>
 		</dict>
@@ -346,7 +346,7 @@
 				</dict>
 			</dict>
 			<key>match</key>
-			<string>(\$)(!|@|&amp;|`|'|\+|\d+|~|=|/|\\|,|;|\.|&lt;|&gt;|_|\*|\$|\?|:|"|-[0adFiIlpv])</string>
+			<string>(\$)(!|@|&amp;|`|&apos;|\+|\d+|~|=|/|\\|,|;|\.|&lt;|&gt;|_|\*|\$|\?|:|&quot;|-[0adFiIlpv])</string>
 			<key>name</key>
 			<string>variable.other.readwrite.global.pre-defined.ruby</string>
 		</dict>
@@ -513,7 +513,7 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>:'</string>
+			<string>:&apos;</string>
 			<key>captures</key>
 			<dict>
 				<key>0</key>
@@ -523,14 +523,14 @@
 				</dict>
 			</dict>
 			<key>end</key>
-			<string>'</string>
+			<string>&apos;</string>
 			<key>name</key>
 			<string>constant.other.symbol.single-quoted.ruby</string>
 			<key>patterns</key>
 			<array>
 				<dict>
 					<key>match</key>
-					<string>\\['\\]</string>
+					<string>\\[&apos;\\]</string>
 					<key>name</key>
 					<string>constant.character.escape.ruby</string>
 				</dict>
@@ -538,7 +538,7 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>:"</string>
+			<string>:&quot;</string>
 			<key>captures</key>
 			<dict>
 				<key>0</key>
@@ -548,7 +548,7 @@
 				</dict>
 			</dict>
 			<key>end</key>
-			<string>"</string>
+			<string>&quot;</string>
 			<key>name</key>
 			<string>constant.other.symbol.double-quoted.ruby</string>
 			<key>patterns</key>
@@ -565,7 +565,7 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>'</string>
+			<string>&apos;</string>
 			<key>beginCaptures</key>
 			<dict>
 				<key>0</key>
@@ -577,7 +577,7 @@
 			<key>comment</key>
 			<string>single quoted string (does not allow interpolation)</string>
 			<key>end</key>
-			<string>'</string>
+			<string>&apos;</string>
 			<key>endCaptures</key>
 			<dict>
 				<key>0</key>
@@ -592,7 +592,7 @@
 			<array>
 				<dict>
 					<key>match</key>
-					<string>\\'|\\\\</string>
+					<string>\\&apos;|\\\\</string>
 					<key>name</key>
 					<string>constant.character.escape.ruby</string>
 				</dict>
@@ -600,7 +600,7 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>"</string>
+			<string>&quot;</string>
 			<key>beginCaptures</key>
 			<dict>
 				<key>0</key>
@@ -612,7 +612,7 @@
 			<key>comment</key>
 			<string>double quoted string (allows for interpolation)</string>
 			<key>end</key>
-			<string>"</string>
+			<string>&quot;</string>
 			<key>endCaptures</key>
 			<dict>
 				<key>0</key>
@@ -1633,7 +1633,7 @@
 
 			examples (4th alternation = normal):
 			?a       ?A       ?0
-			?*       ?"       ?(
+			?*       ?&quot;       ?(
 			?.       ?#
 
 
@@ -1863,7 +1863,7 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>(?&gt;&lt;&lt;-(["\\']?)(\w+_(?i:eval))\1)</string>
+			<string>(?&gt;&lt;&lt;-([&quot;\\&apos;]?)(\w+_(?i:eval))\1)</string>
 			<key>beginCaptures</key>
 			<dict>
 				<key>0</key>
